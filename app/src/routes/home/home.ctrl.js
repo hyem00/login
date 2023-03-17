@@ -1,10 +1,6 @@
 "use strict";
 
-//프론트에서 넘겨준 아이디 정보가 맞는지 확인하기 위한 기존 아디
-const users = {
-  id: ["hyem", "ddd", "aaa"],
-  pwd: ["1111", "2222", "3333"],
-};
+const UserStorage = require("../../models/UserStorage");
 
 const output = {
   home: (req, res) => {
@@ -21,13 +17,18 @@ const process = {
     const id = req.body.id;
     const pwd = req.body.pwd;
 
+    const users = UserStorage.getUsers("id", "pwd");
+    const response = {};
     if (users.id.includes(id)) {
       const idx = users.id.indexOf(id);
       if (users.pwd[idx] === pwd) {
-        return res.json({ success: true });
+        response.success = true;
+        return res.json(response);
       }
     }
-    return res.json({ success: false, msg: "로그인 실패" });
+    response.success = false;
+    response.msg = "로그인 실패";
+    return res.json(response);
   },
 };
 
