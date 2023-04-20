@@ -9,15 +9,20 @@ class User {
   }
 
   login() {
-    const body = this.body;
-    const { id, pwd } = UserStorage.getUserInfo(body.id);
+    const client = this.body;
+    const { id, pwd } = UserStorage.getUserInfo(client.id);
     if (id) {
-      if (id === body.id && pwd === body.pwd) {
+      if (id === client.id && pwd === client.pwd) {
         return { success: true };
       }
       return { success: false, msg: "비밀번호 틀림" };
     }
     return { success: false, msg: "아이디가 존재하지 않음" };
+  }
+
+  register() {
+    const client = this.body;
+    UserStorage.save(this.body);
   }
 }
 

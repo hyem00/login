@@ -34,6 +34,11 @@ class UserStorage {
     }, {});
     return userInfo;
   }
+
+  static save(userInfo) {
+    const users = this.#users;
+    // 여기에 기존 데이터스토리지에 새로운 회원의 정보를 푸시 해주는 코드임
+  }
 }
 
 module.exports = UserStorage;
